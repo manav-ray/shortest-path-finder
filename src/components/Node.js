@@ -26,6 +26,6 @@ export default function Node ({point, numSpecials, setNumSpecials}) {
     }
 
     return (
-        <div className={`node ${classes}`} onClick={setPoint}/>
+        <div id={`node-${point.x}-${point.y}`} className={`node ${classes}`} onClick={setPoint}/>
     )
 }

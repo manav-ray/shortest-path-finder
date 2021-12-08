@@ -5,6 +5,8 @@ export class Point {
         this.y = y;
         this.isStart = false;
         this.isEnd = false;
+        this.distance = Infinity;
+        this.isVisited = false;
 
         this.setStart = (boolean) => {
             this.isStart = boolean;
@@ -12,6 +14,14 @@ export class Point {
 
         this.setEnd = (boolean) => {
             this.isEnd = boolean;
+        }
+
+        this.setDistance = (newDistance) => {
+            this.distance = newDistance;
+        }
+
+        this.setVisited = (boolean) => {
+            this.isVisited = boolean;
         }
 
         this.equals = (comparePoint) => {
