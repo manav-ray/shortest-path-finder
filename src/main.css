@@ -13,6 +13,10 @@
     background-color: red;
 }
 
+.node-wall {
+  background-color: #212121;
+}
+
 .node-visited {
     animation-name: visitedAnimation;
     animation-duration: 1.5s;
@@ -27,17 +31,17 @@
   @keyframes visitedAnimation {
     0% {
       transform: scale(0.6);
-      background-color: #212121;
+      background-color: rgb(95, 158, 160);
     }
   
     50% {
       transform: scale(1.2);
-      background-color: #212121;
+      background-color: rgb(95, 158, 160);
     }
   
     100% {
       transform: scale(1);
-      background-color: #212121;
+      background-color: rgb(95, 158, 160);
     }
   }
 

@@ -8,6 +8,11 @@ export class Point {
         this.distance = Infinity;
         this.isVisited = false;
         this.previous = null;
+        this.isWall = false;
+
+        this.setWall = (boolean) => {
+            this.isWall = boolean;
+        }
 
         this.setPrevious = (point) => {
             this.previous = point;

@@ -16,6 +16,14 @@ export const breadthFirstSearch = (startPoint, grid) => {
         unvisited.sort((point1, point2) => point1.distance - point2.distance);
         const closestPoint = unvisited.shift();
 
+        if (closestPoint.isWall) {
+            continue;
+        }
+
+        if (closestPoint.distance === Infinity) {
+            return pointsInOrder;
+        }
+
         closestPoint.setVisited(true);
         pointsInOrder.push(closestPoint);
         if(closestPoint.isEnd) {
