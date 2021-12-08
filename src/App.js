@@ -1,8 +1,9 @@
 import './main.css'
+import Grid from './components/Grid';
 
 function App() {
   return (
-    <h1>New React App</h1>
+    <Grid />
   );
 }
 
