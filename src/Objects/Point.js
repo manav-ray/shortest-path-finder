@@ -7,6 +7,11 @@ export class Point {
         this.isEnd = false;
         this.distance = Infinity;
         this.isVisited = false;
+        this.previous = null;
+
+        this.setPrevious = (point) => {
+            this.previous = point;
+        }
 
         this.setStart = (boolean) => {
             this.isStart = boolean;

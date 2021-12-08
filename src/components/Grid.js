@@ -3,7 +3,7 @@ import {Point} from './../Objects/Point';
 import Node from './Node';
 import {Button, Modal} from 'react-bootstrap';
 import './../main.css'
-import {breadthFirstSearch} from './../algorithms/bfs';
+import {breadthFirstSearch, shortestPathInOrder} from './../algorithms/bfs';
 
 export default function Grid () {
 
@@ -65,14 +65,29 @@ export default function Grid () {
             return;
         }
 
-        const pointsInOrder = breadthFirstSearch(startPoint, endPoint, grid);
-        for(let k = 0; k < pointsInOrder.length; k++) {
-            setTimeout(() => { 
-                const currPoint = pointsInOrder[k];
-                if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
-                    document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-visited';
-                }
-            }, 2 * k)
+        const pointsInOrder = breadthFirstSearch(startPoint, grid);
+        for(let k = 0; k <= pointsInOrder.length; k++) {
+            if (k === pointsInOrder.length) {
+                setTimeout(() => { 
+                    const shortestPath = shortestPathInOrder(endPoint);
+                    for(let k = 0; k < shortestPath.length; k++) {
+                        setTimeout(() => { 
+                            const currPoint = shortestPath[k];
+                            if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
+                                document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-path';
+                            }
+                        }, 20 * k)
+                    }
+                }, 2 * k)
+            }
+            else {
+                setTimeout(() => { 
+                    const currPoint = pointsInOrder[k];
+                    if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
+                        document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-visited';
+                    }
+                }, 2 * k)
+            }
         }
     }
     
