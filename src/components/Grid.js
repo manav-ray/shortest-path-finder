@@ -70,13 +70,15 @@ export default function Grid () {
      * Resets the grid.
      */
     const resetGrid = () => {
+        initGrid(grid.length, grid[0].length);
+
         for(let i = 0; i < grid.length; i++) {
             for(let j = 0; j < grid[i].length; j++) {
-                grid[i][j].setVisited(false);
-                grid[i][j].setStart(false);
-                grid[i][j].setEnd(false);
-                grid[i][j].setWall(false);
-                grid[i][j].setDistance(Infinity);
+                // grid[i][j].setVisited(false);
+                // grid[i][j].setStart(false);
+                // grid[i][j].setEnd(false);
+                // grid[i][j].setWall(false);
+                // grid[i][j].setDistance(Infinity);
                 document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
             }
         }
