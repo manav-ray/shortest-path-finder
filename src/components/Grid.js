@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Point} from './../Objects/Point';
+import {Point} from './../objects/Point';
 import Node from './Node';
 import {Button, Modal} from 'react-bootstrap';
 import './../main.css'
@@ -74,11 +74,6 @@ export default function Grid () {
 
         for(let i = 0; i < grid.length; i++) {
             for(let j = 0; j < grid[i].length; j++) {
-                // grid[i][j].setVisited(false);
-                // grid[i][j].setStart(false);
-                // grid[i][j].setEnd(false);
-                // grid[i][j].setWall(false);
-                // grid[i][j].setDistance(Infinity);
                 document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
             }
         }

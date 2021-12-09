@@ -9,6 +9,11 @@ export class Point {
         this.isVisited = false;
         this.previous = null;
         this.isWall = false;
+        this.isWeight = false;
+
+        this.setWeight = (boolean) => {
+            this.isWeight = boolean;
+        }
 
         this.setWall = (boolean) => {
             this.isWall = boolean;

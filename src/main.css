@@ -1,5 +1,9 @@
 .node-start {
-  animation-name: startAnimation;
+  background-image: url(./icons/source.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: iconAnimation;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   animation-delay: 0;
@@ -9,25 +13,41 @@
   animation-play-state: running;
 }
 
-@keyframes startAnimation {
+.node-weight {
+  background-image: url(./icons/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: iconAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes iconAnimation {
   0% {
     transform: scale(0.6);
-    background-color: rgb(139, 204, 139);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(139, 204, 139);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(139, 204, 139);
   }
 }
 
 .node-end {
-  animation-name: endAnimation;
+  background-image: url(./icons/target.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: iconAnimation;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   animation-delay: 0;
@@ -35,23 +55,6 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
-}
-
-@keyframes endAnimation {
-  0% {
-    transform: scale(0.6);
-    background-color: rgb(158, 51, 110);
-  }
-
-  50% {
-    transform: scale(1.2);
-    background-color: rgb(158, 51, 110);
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgb(158, 51, 110);
-  }
 }
 
 .node-wall {
