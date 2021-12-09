@@ -67,6 +67,25 @@ export default function Grid () {
 
 
     /**
+     * Resets the grid.
+     */
+    const resetGrid = () => {
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[i].length; j++) {
+                grid[i][j].setVisited(false);
+                grid[i][j].setStart(false);
+                grid[i][j].setEnd(false);
+                grid[i][j].setWall(false);
+                grid[i][j].setDistance(Infinity);
+                document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
+            }
+        }
+
+        setNumSpecials(0);
+    }
+
+
+    /**
      * Calls and visualizes the depth first search algorithm.
      */
     const generateMaze = () => {
@@ -116,7 +135,6 @@ export default function Grid () {
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-
 
     /**
      * Calls and visualizes the breadth first search algorithm.
@@ -172,7 +190,7 @@ export default function Grid () {
         <>
             <div className="container">
             <h1 style={{marginBottom: '15px'}} >Pathfinding Visualizer</h1>
-                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Reset</Button>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={resetGrid}>Reset</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
             </div>
