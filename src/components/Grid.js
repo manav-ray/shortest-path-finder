@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Point} from './../objects/Point';
 import Node from './Node';
-import {Button, Modal} from 'react-bootstrap';
+import {Button, Modal, Form} from 'react-bootstrap';
 import './../main.css'
 import {breadthFirstSearch, shortestPathInOrder} from './../algorithms/bfs';
 
@@ -9,6 +9,8 @@ export default function Grid () {
 
     const [grid, setGrid] = useState([]);
     const [numSpecials, setNumSpecials] = useState(0);
+
+    const [speed, setSpeed] = useState(5);
 
     const [show, setShow] = useState(false);
 
@@ -26,9 +28,7 @@ export default function Grid () {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        console.log(height, width);
-
-        initGrid(height / 28, width / 20);
+        initGrid(height / 30, width / 20);
 
 
         function handleResize() {
@@ -117,7 +117,7 @@ export default function Grid () {
             setTimeout(() => { 
                 const currPoint = walls[k];
                 document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-wall';
-            }, 2 * k)
+            }, speed * k)
             
         }
 
@@ -170,7 +170,7 @@ export default function Grid () {
                             }
                         }, 20 * k)
                     }
-                }, 2 * k)
+                }, speed * k)
             }
             else {
                 setTimeout(() => { 
@@ -178,7 +178,7 @@ export default function Grid () {
                     if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
                         document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-visited';
                     }
-                }, 2 * k)
+                }, speed * k)
             }
         }
     }
@@ -187,9 +187,14 @@ export default function Grid () {
         <>
             <div className="container">
             <h1 style={{marginBottom: '15px'}} >Pathfinding Visualizer</h1>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={handleShowIns}>View Instructions</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={resetGrid}>Reset</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
+                <br/>
+                <Form.Label>Set Speed</Form.Label>
+                <br/>
+                <Form.Range style={{width: window.innerWidth / 3}} onChange={(e) => setSpeed(10 - (e.target.value / 10))} />
             </div>
             <div>
                 {grid.map((row, rowId) => {
