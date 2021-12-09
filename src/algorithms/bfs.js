@@ -7,7 +7,7 @@
  * @param {*} grid whole grid.
  * @returns all visited points part of bfs in order.
  */
-export const breadthFirstSearch = (startPoint, grid) => {
+export const breadthFirstSearch = (startPoint, endPoint, grid) => {
     var pointsInOrder = []
     startPoint.setDistance(0);
     const unvisited = getAllPoints(grid);
@@ -26,7 +26,7 @@ export const breadthFirstSearch = (startPoint, grid) => {
 
         closestPoint.setVisited(true);
         pointsInOrder.push(closestPoint);
-        if(closestPoint.isEnd) {
+        if(closestPoint.equals(endPoint)) {
             return pointsInOrder;
         }        
 
