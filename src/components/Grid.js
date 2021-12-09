@@ -16,6 +16,14 @@ export default function Grid () {
     const handleShow = () => setShow(true);
 
     useEffect(() => { 
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        console.log(height, width);
+
+        initGrid(height / 28, width / 20);
+
+
         function handleResize() {
             const width = window.innerWidth;
             const height = window.innerHeight;
@@ -125,7 +133,6 @@ export default function Grid () {
             handleShow();
             return;
         }
-
 
         const pointsInOrder = breadthFirstSearch(startPoint, endPoint, grid);
        
