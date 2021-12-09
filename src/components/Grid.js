@@ -15,7 +15,14 @@ export default function Grid () {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+
+    const [showIns, setShowIns] = useState(false);
+    const handleCloseIns = () => setShowIns(false);
+    const handleShowIns = () => setShowIns(true);
+
     useEffect(() => { 
+        handleShowIns();
+
         const width = window.innerWidth;
         const height = window.innerHeight;
 
@@ -189,6 +196,25 @@ export default function Grid () {
                 <Modal.Body>Illegal grid state. Please specify a start and end point.</Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
+            <Modal show={showIns} onHide={handleCloseIns}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Instructions</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <li>Click on a node once to make it a start node (green)</li>
+                    <li>Click on a node twice (or once if node is already a start node) to make it an end node (magenta).</li>
+                    <li>Hold 'w' and drag mouse to generate wall nodes, or click on "Generate Maze" to create a random maze.</li>
+                    <li>Click "Reset" to clear the grid.</li>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseIns}>
                     Close
                 </Button>
                 </Modal.Footer>
