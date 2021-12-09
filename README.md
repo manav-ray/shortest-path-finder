@@ -1,5 +1,7 @@
 # Path-finding visualizer
 
+Published at: https://manav-ray.github.io/shortest-path-finder/
+
 Currently has breadth first search and capability to generate random maze; more to come soon.
 
 ## Instructions
