@@ -1,20 +1,92 @@
 .node {
     width: 20px;
     height: 20px;
-    border: 1px solid black;
+    border: 1px solid #ADD8E6;
     
 }
 
 .node-start {
-    background-color: green;
+  animation-name: startAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes startAnimation {
+  0% {
+    transform: scale(0.6);
+    background-color: rgb(139, 204, 139);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(139, 204, 139);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(139, 204, 139);
+  }
 }
 
 .node-end {
-    background-color: red;
+  animation-name: endAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes endAnimation {
+  0% {
+    transform: scale(0.6);
+    background-color: rgb(158, 51, 110);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(158, 51, 110);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(158, 51, 110);
+  }
 }
 
 .node-wall {
-  background-color: #212121;
+  animation-name: wallsAnimation;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes wallsAnimation {
+  0% {
+    transform: scale(0.6);
+    background-color: #212121;
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: #212121;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #212121;
+  }
 }
 
 .node-visited {

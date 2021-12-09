@@ -43,6 +43,58 @@ export default function Grid () {
 
 
     /**
+     * Calls and visualizes the depth first search algorithm.
+     */
+    const generateMaze = () => {
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[i].length; j++) {
+                if (grid[i][j].isStart || grid[i][j].isEnd) {
+                    continue;
+                }
+                if(grid[i][j].isWall) {
+                    grid[i][j].setWall(false);
+                    document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
+                }
+            }
+        }
+
+        const walls = []
+
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[i].length; j++) {
+                if (grid[i][j].isStart || grid[i][j].isEnd) {
+                    continue;
+                }
+                const randInt = getRandomInt(4);
+                if(randInt === 0) {
+                    grid[i][j].setWall(true);
+                    walls.push(grid[i][j]);
+                }
+            }
+        }
+
+        for(let k = 0; k < walls.length; k++) {
+            setTimeout(() => { 
+                const currPoint = walls[k];
+                document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-wall';
+            }, 2 * k)
+            
+        }
+
+
+    }
+
+    /**
+     * Helper function to get random integer.
+     * @param {*} max ceiling
+     * @returns random int.
+     */
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+
+    /**
      * Calls and visualizes the breadth first search algorithm.
      */
     const bfs = () => { 
@@ -93,10 +145,11 @@ export default function Grid () {
     
     return (
         <div className="container">
-            <h1>Pathfinding Visualizer</h1>
-            <br/>
+            <h1 style={{marginBottom: '15px'}} >Pathfinding Visualizer</h1>
             <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Reset</Button>
-            <Button style={{marginBottom: '15px'}} onClick={bfs}>Breadth First Search</Button>
+            <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
+            <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
+            
             <div>
                 {grid.map((row, rowId) => {
                     return (
