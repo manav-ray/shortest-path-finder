@@ -8,6 +8,8 @@ export default function Node ({point, numSpecials, setNumSpecials}) {
      * Sets the start and end points.
      */
     const setPoint = () => {
+        point.setWall(false);
+
         if(!point.isStart && !point.isEnd) {
             if (numSpecials === 2) {
                 return;
