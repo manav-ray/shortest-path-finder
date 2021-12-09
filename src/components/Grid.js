@@ -16,7 +16,13 @@ export default function Grid () {
     const handleShow = () => setShow(true);
 
     useEffect(() => { 
-        initGrid(30, 80);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        console.log(height, width);
+
+        initGrid(height / 28, width / 20)
+        // initGrid(57, 128);
     }, [])
 
     
@@ -117,7 +123,9 @@ export default function Grid () {
             return;
         }
 
+
         const pointsInOrder = breadthFirstSearch(startPoint, grid);
+       
         for(let k = 0; k <= pointsInOrder.length; k++) {
             if (k === pointsInOrder.length) {
                 setTimeout(() => { 
@@ -143,13 +151,14 @@ export default function Grid () {
         }
     }
     
-    return (
-        <div className="container">
+    return ( 
+        <>
+            <div className="container">
             <h1 style={{marginBottom: '15px'}} >Pathfinding Visualizer</h1>
-            <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Reset</Button>
-            <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
-            <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
-            
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Reset</Button>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
+            </div>
             <div>
                 {grid.map((row, rowId) => {
                     return (
@@ -174,6 +183,6 @@ export default function Grid () {
                 </Button>
                 </Modal.Footer>
             </Modal>
-        </div>    
+        </>    
     )
 }
