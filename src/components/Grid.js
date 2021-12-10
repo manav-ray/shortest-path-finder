@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {Point} from './../objects/Point';
 import Node from './Node';
-import {Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form, Dropdown, DropdownButton} from 'react-bootstrap';
 import './../main.css'
 import {breadthFirstSearch, shortestPathInOrder} from './../algorithms/bfs';
+import {depthFirstSearch} from './../algorithms/dfs';
 
 export default function Grid () {
 
     const [grid, setGrid] = useState([]);
     const [numSpecials, setNumSpecials] = useState(0);
+
+    const [algoText, setAlgoText] = useState("");
 
     const [speed, setSpeed] = useState(5);
 
@@ -23,19 +26,15 @@ export default function Grid () {
     const handleShowIns = () => setShowIns(true);
 
     useEffect(() => { 
-        handleShowIns();
-
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        initGrid(height / 30, width / 20);
+        initGrid(height / 32, width / 20);
 
 
         function handleResize() {
             const width = window.innerWidth;
             const height = window.innerHeight;
-
-            console.log(height, width);
 
             initGrid(height / 28, width / 20);
         }
@@ -63,22 +62,6 @@ export default function Grid () {
         }
 
         setGrid(tempGrid);
-    }
-
-
-    /**
-     * Resets the grid.
-     */
-    const resetGrid = () => {
-        initGrid(grid.length, grid[0].length);
-
-        for(let i = 0; i < grid.length; i++) {
-            for(let j = 0; j < grid[i].length; j++) {
-                document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
-            }
-        }
-
-        setNumSpecials(0);
     }
 
 
@@ -134,6 +117,71 @@ export default function Grid () {
     }
 
     /**
+     * Calls and visualizes the depth first search algorithm.
+     */
+     const dfs = () => { 
+        var startPoint = null;
+        var endPoint = null;
+
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[i].length; j++) {
+                if (grid[i][j].isStart) {
+                    startPoint = grid[i][j];
+                }
+                else if(grid[i][j].isEnd) {
+                    endPoint = grid[i][j];
+                }
+            }
+        }
+
+        if(startPoint === null || endPoint === null) {
+            handleShow();
+            return;
+        }
+
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[i].length; j++) {
+                if (grid[i][j].isStart || grid[i][j].isEnd) {
+                    continue;
+                }
+                if(grid[i][j].isWall) {
+                    grid[i][j].setWall(false);
+                    document.getElementById(`node-${grid[i][j].x}-${grid[i][j].y}`).className = 'node';
+                }
+            }
+        }
+
+        const pointsInOrder = depthFirstSearch(startPoint, endPoint, grid);
+
+        setAlgoText("Depth First Search does not guarantee the shortest path.")
+
+
+        for(let k = 0; k <= pointsInOrder.length; k++) {
+            if (k === pointsInOrder.length) {
+                setTimeout(() => { 
+                    const shortestPath = shortestPathInOrder(endPoint);
+                    for(let k = 0; k < shortestPath.length; k++) {
+                        setTimeout(() => { 
+                            const currPoint = shortestPath[k];
+                            if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
+                                document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-path';
+                            }
+                        }, 20 * k)
+                    }
+                }, speed * k)
+            }
+            else {
+                setTimeout(() => { 
+                    const currPoint = pointsInOrder[k];
+                    if (!currPoint.equals(startPoint) && !currPoint.equals(endPoint)) {
+                        document.getElementById(`node-${currPoint.x}-${currPoint.y}`).className = 'node node-visited';
+                    }
+                }, speed * k)
+            }
+        }
+    }
+
+    /**
      * Calls and visualizes the breadth first search algorithm.
      */
     const bfs = () => { 
@@ -157,6 +205,8 @@ export default function Grid () {
         }
 
         const pointsInOrder = breadthFirstSearch(startPoint, endPoint, grid);
+
+        setAlgoText("Breadth First Search guarantees the shortest path!")
        
         for(let k = 0; k <= pointsInOrder.length; k++) {
             if (k === pointsInOrder.length) {
@@ -186,15 +236,19 @@ export default function Grid () {
     return ( 
         <>
             <div className="container">
-            <h1 style={{marginBottom: '15px'}} >Pathfinding Visualizer</h1>
+            
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={handleShowIns}>View Instructions</Button>
-                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={resetGrid}>Reset</Button>
+                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={() => window.location.reload(false)}>Reset</Button>
                 <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={generateMaze}>Generate Maze</Button>
-                <Button style={{marginBottom: '15px', marginRight: '10px'}} onClick={bfs}>Breadth First Search</Button>
+                <DropdownButton id="dropdown-basic-button" title="Select Algorithm">
+                <Dropdown.Item onClick={bfs}>Breadth First Search</Dropdown.Item>
+                <Dropdown.Item onClick={dfs}>Depth First Search (Walls Disabled)</Dropdown.Item>
+                </DropdownButton>
                 <br/>
                 <Form.Label>Set Speed</Form.Label>
                 <br/>
                 <Form.Range style={{width: window.innerWidth / 3}} onChange={(e) => setSpeed(10 - (e.target.value / 10))} />
+                <h5 style={{marginBottom: '15px'}} >{algoText}</h5>
             </div>
             <div>
                 {grid.map((row, rowId) => {
@@ -231,6 +285,7 @@ export default function Grid () {
                     <li>Click on a node once to make it a start node (star)</li>
                     <li>Click on a node twice (or once if node is already a start node) to make it an end node (target).</li>
                     <li>Hold 'w' and drag mouse to generate wall nodes, or click on "Generate Maze" to create a random maze.</li>
+                    <li>Select an algorithm from the drop down menu after specifying a start and end node.</li>
                     <li>Click "Reset" to clear the grid.</li>
                 </Modal.Body>
                 <Modal.Footer>
