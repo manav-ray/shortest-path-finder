@@ -2,7 +2,7 @@
 
 Published at: https://manav-ray.github.io/shortest-path-finder/
 
-Currently has breadth first search and capability to generate random maze; more to come soon.
+Currently has breadth first search and capability to generate random maze. Also, depth first search without walls; more to come soon.
 
 ## Instructions
 * Click on a node once to make it a start node (green)
